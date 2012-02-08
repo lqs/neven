@@ -14,7 +14,7 @@ It's easy to use this library in your applications.
 
 #include <neven.h>
 
-struct neven_env *env = neven_init(width, height, max_faces);
+struct neven_env *env = neven_create(width, height, max_faces);
 int num_faces = neven_detect(env, buffer); // 'buffer' points to a grayscale 1-byte-per-pixel raw image buffer
 int i;
 for (i = 0; i < num_faces; i++) {
