@@ -1,4 +1,6 @@
-This is the face detection library from Android source tree. You can now use it in non-Android applications.
+This is the face detection library extracted from Android source tree. You can now use it in non-Android applications.
+
+It was originally written by Neven Vision, a company acquired by Google in 2006.
 
 Building
 --------
