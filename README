@@ -1,0 +1,26 @@
+This is the face detection library from Android source tree. You can now use it in non-Android applications.
+
+Building
+--------
+
+$ make
+$ sudo make install
+
+
+Writing Application
+-------------------
+
+It's easy to use this library in your applications.
+
+#include <neven.h>
+
+struct neven_env *env = neven_init(width, height, max_faces);
+int num_faces = neven_detect(env, buffer); // 'buffer' points to a grayscale 1-byte-per-pixel raw image buffer
+int i;
+for (i = 0; i < num_faces; i++) {
+	struct neven_face face;
+	neven_get_face(env, &face, i);
+	printf("face %d is at (%f, %f)\n", i, env.midpointx, env.midpointy);
+}
+neven_destroy(env);
+
