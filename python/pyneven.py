@@ -27,3 +27,25 @@ class Neven:
     def __del__(self):
         libneven.neven_destroy(self.env)
 
+import Image
+
+def detect_faces_from_image(image):
+    img = image.convert('L')
+    width, height = img.size
+    if max(width, height) > 600:
+        scale = max(width, height) / 600.0
+        img.thumbnail((int(width / scale), int(height / scale)), Image.BILINEAR)
+    else:
+        scale = 1.0
+
+    neven = Neven(*img.size)
+    faces = neven.detect_faces(img.tostring())
+    for face in faces:
+        face.midpointx *= scale
+        face.midpointy *= scale
+        face.eyedist *= scale
+    return faces
+
+def detect_faces_from_filename(filename):
+    return detect_faces_from_image(Image.open(filename))
+
