@@ -4,36 +4,23 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "FaceRecEm/common/src/b_FDSDK/fd_emb_sdk.h"
+#include "neven.h"
 
 #define LOGE printf
 #define doThrow(...)
-
-struct neven_env {
-	btk_HFaceFinder fd;
-	btk_HSDK sdk;
-	btk_HDCR dcr;
-	int width;
-	int height;
-};
-
-struct neven_face {
-	float confidence;
-	float midpointx;
-	float midpointy;
-	float eyedist;
-};
 
 static void *malloc32(u32 size) {
 	return malloc(size);
 }
 
-struct neven_env *neven_create(int w, int h, int maxFaces) {
+struct neven_env *neven_create(const char *descfile, int w, int h, int maxFaces) {
 	const int MAX_FILE_SIZE = 65536;
 	void* initData = malloc( MAX_FILE_SIZE ); /* enough to fit entire file */
-	int filedesc = open("/usr/share/neven/bmd/RFFprec_501.bmd", O_RDONLY);
-	if (filedesc == -1)
+	int filedesc = open(descfile, O_RDONLY);
+	if (filedesc == -1) {
+		LOGE("ERROR: unable to load describe file\n");
 		return NULL;
+	}
 	int initDataSize = read(filedesc, initData, MAX_FILE_SIZE);
 	close(filedesc);
 
