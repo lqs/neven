@@ -1,4 +1,3 @@
-#!/bin/sh
 
 CC = gcc
 LD = ld
@@ -7,7 +6,7 @@ MKDIR = mkdir
 INSTALL = install
 PREFIX = /usr
 
-CFLAGS = -O2 -fPIC -IEmbedded/common/src
+CFLAGS = -O2 -fPIC -IEmbedded/common/src -IFaceRecEm/common/src -fno-stack-protector -g
 
 OBJS = Embedded/common/src/b_APIEm/DCR.o \
        Embedded/common/src/b_APIEm/BFFaceFinder.o \
