@@ -8,15 +8,16 @@ class NevenFace(Structure):
         ("eyedist", c_float),
     ]
 
+nevenbmd = "/usr/share/neven/bmd/RFFprec_501.bmd"
 libneven = CDLL('libneven.so')
-libneven.neven_create.argtypes = [c_int, c_int, c_int]
+libneven.neven_create.argtypes = [c_void_p, c_int, c_int, c_int]
 libneven.neven_detect.argtypes = [c_void_p, c_char_p]
 libneven.neven_get_face.argtypes = [c_void_p, POINTER(NevenFace), c_int]
 libneven.neven_destroy.argtypes = [c_void_p]
 
 class Neven:
     def __init__(self, width, height, max_faces = 32):
-        self.env = libneven.neven_create(width, height, max_faces)
+        self.env = libneven.neven_create(nevenbmd, width, height, max_faces)
     def detect_faces(self, buf):
         faces = []
         for idx in range(libneven.neven_detect(self.env, buf)):
