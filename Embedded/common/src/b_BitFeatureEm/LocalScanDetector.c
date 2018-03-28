@@ -675,7 +675,8 @@ int32 bbf_LocalScanDetector_process( struct bbs_Context* cpA,
 			}
 			while( !sortedL );
 
-			for( iL = ( sizeL >> 1 ); iL < sizeL && actArrL[ idxArrL[ iL ] ] >= 0; iL++ );
+			for( iL = ( sizeL >> 1 ); iL < sizeL && actArrL[ idxArrL[ iL ] ] >= 0; iL++ )
+				;
 
 			{
 				uint32 subSizeL = iL;

@@ -9,10 +9,6 @@
 #define LOGE printf
 #define doThrow(...)
 
-static void *malloc32(u32 size) {
-	return malloc(size);
-}
-
 struct neven_env *neven_create(const char *descfile, int w, int h, int maxFaces) {
 	const int MAX_FILE_SIZE = 65536;
 	void* initData = malloc( MAX_FILE_SIZE ); /* enough to fit entire file */
@@ -26,7 +22,7 @@ struct neven_env *neven_create(const char *descfile, int w, int h, int maxFaces)
 
 	btk_HSDK sdk = NULL;
 	btk_SDKCreateParam sdkParam = btk_SDK_defaultParam();
-	sdkParam.fpMalloc = malloc32;
+	sdkParam.fpMalloc = malloc;
 	sdkParam.fpFree = free;
 	sdkParam.maxImageWidth = w;
 	sdkParam.maxImageHeight = h;

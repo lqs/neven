@@ -29,6 +29,7 @@ extern "C" {
 /* ---- includes ----------------------------------------------------------- */
 
 #include "Types.h"
+#include <sys/types.h>
 
 /* ---- related objects  --------------------------------------------------- */
 
@@ -41,7 +42,7 @@ struct btk_SDK;
 typedef struct btk_SDK* btk_HSDK;
 
 /** malloc function pointer */
-typedef void* ( *btk_fpMalloc )( u32 sizeA );
+typedef void* ( *btk_fpMalloc )( size_t sizeA );
 
 /** free function pointer */
 typedef void ( *btk_fpFree )( void* memPtrA );

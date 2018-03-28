@@ -19,6 +19,10 @@
 #include "b_BasicEm/Functions.h"
 #include "b_BasicEm/Int16Arr.h"
 
+#ifndef bbs_TYPES_64_AVAILABLE
+#include <stdint.h>
+#endif
+
 /* ------------------------------------------------------------------------- */
 
 /* ========================================================================= */
@@ -181,7 +185,7 @@ void bbs_Int16Arr_createAligned( struct bbs_Context* cpA,
 		ptrA->arrPtrE++;
 	}	
 #else
-	while( ( ( ( uint32 ) ptrA->arrPtrE ) & ( alignBytesA - 1 ) ) )
+	while( ( ( ( uintptr_t ) ptrA->arrPtrE ) & ( alignBytesA - 1 ) ) )
 	{
 		ptrA->arrPtrE++;
 	}	
