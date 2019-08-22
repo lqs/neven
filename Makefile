@@ -126,6 +126,3 @@ clean:
 %.d: %.c
 	$(CC) $(CFLAGS) -MM -MT"$@ $(@:.d=.o)" -MP -MF $@ $<
 
-
-
-
