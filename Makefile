@@ -94,6 +94,12 @@ OBJS = Embedded/common/src/b_APIEm/DCR.o \
        FaceRecEm/common/src/b_FDSDK/SDK.o \
        neven.o
 
+# create a list of auto dependencies
+AUTODEPS:= $(patsubst %.o,%.d, $(OBJS))
+
+# include by auto dependencies
+-include $(AUTODEPS)
+
 all: libneven.so
 
 libneven.so: $(OBJS)
@@ -112,4 +118,11 @@ uninstall:
 
 clean:
 	$(RM) -f $(OBJS) libneven.so
+	${RM} -f $(AUTODEPS)
+
+%.o: %.c %.d
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+%.d: %.c
+	$(CC) $(CFLAGS) -MM -MT"$@ $(@:.d=.o)" -MP -MF $@ $<
 
